@@ -4,46 +4,62 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Production Load Balancer</title>
-    <meta name="description" content="Production Load Balancer">
-    <meta name="author" content="SitePoint">
+    <title>Overflow Visualizer</title>
+    <meta name="description" content="Overflow Visualizer">
+    <meta name="author" content="MollySetzer">
 
     <link rel="stylesheet" href="css/styles.css?v=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 
 <body>
-    <div class="start">
-            <p>seconds:</p>
-            <input type="number" id="secondsInput" value="">
-            <button onclick="timerOne()">Start</button>
-            <p id=""></p>
-            <p>count:</p>
-            <input type="number" id="ballCount" value="">
-            <button onclick="getCount()">Start</button>
-    </div>
-    <div class="module1">
-        <div class="ball">
-            <img class="ball" src="assets/orangeBall.png">
+    <header class="header">
+            <p>Total Ball Count: </p>
+            <input type="number" id="ballCount" value="" required>
+            <button id="mod-one-number-button">Submit</button>
+            <button id="start" onclick="">Start</button>
+    </header>
+    <div id="ball-container"></div>
+    <div class="module1-container">
+        <div class="controls-mod-1">
+            <p>Module 1 Seconds:</p>
+            <input type="number" class="required" id="secondsInput" value="">
+            <button id="mod-one-seconds-button" onclick="">Submit</button>
         </div>
         <div class="circle">
-            <img class="grey-circle" src="assets/GreyCircle.png">
+            <img class="grey-circle" src="images/GreyCircle.png">
         </div>
-        <div class="tube">
-            <img class="grey-tube" src="assets/GreyTube.png">
-        </div>
-        <div class="square">
-            <img class="grey-square" src="assets/GreySquare.png">
-        </div>
-        <div class="tube2">
-            <img class="grey-tube" src="assets/GreyTube.png">
-        </div>
-        <div class="circle2">
-            <img class="grey-circle2" src="assets/GreyCircle.png">
-        </div>
+        <div class="controls-mod-2">
+                <p>Module 2 Seconds:</p>
+                <input type="number" class="required" id="secondsInput2" value="">
+                <button id="mod-two-seconds-button" onclick="">Submit</button>
+                <p>Module 2 Max:</p>
+                <input type="number" class="required" id="maxInput" value="">
+                <button id="mod-two-max-button" onclick="">Submit</button>
+            </div>
     </div>
+    <div class="tube">
+        <img class="grey-tube" src="images/GreyTube.png">
+    </div>
+    <div class="toOverflow1">
+        <img class="toOverflow1" src="images/overflow-full.png">
+    </div>
+    <div class="square">
+        <img class="grey-square" src="images/GreySquare.png">
+    </div>
+    <div class="tube2">
+        <img class="grey-tube" src="images/GreyTube.png">
+    </div>
+    <div class="circle2">
+        <img class="grey-circle2" src="images/GreyCircle.png">
+    </div>
+    <script 
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
     <script src="main.js"></script>
+
 </body>
 
 </html>

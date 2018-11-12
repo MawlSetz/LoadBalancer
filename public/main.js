@@ -1,102 +1,117 @@
-// var seconds = 0;
-// var el = document.getElementById('seconds-counter');
+//function pageInit() {
+//   var eventListenerHandler = function (evt) {
+//        //  this.addEventListener("click", startButtonClick, false);
+//    }
+//}
 
-// function incrementSeconds() {
-//     seconds += 1;
-//     el.innerText = "You have been here for " + seconds + " seconds.";
-// }
+//window.addEventListener('click', eventListenerHandler, false);
 
-// var myVar = setInterval(myTimer, 1000);
-
-// function myTimer() {
-//     var d = new Date();
-//     document.getElementById("demo").innerHTML = d.toLocaleTimeString();
-// }
-
-function timedText() {
-    setTimeout(myTimeout1, 2000)
-    setTimeout(myTimeout2, 4000)
-    setTimeout(myTimeout3, 6000)
-}
-function myTimeout1() {
-    document.getElementById("demo").innerHTML = "2 seconds";
-}
-function myTimeout2() {
-    document.getElementById("demo").innerHTML = "4 seconds";
-}
-function myTimeout3() {
-    document.getElementById("demo").innerHTML = "6 seconds";
-}
-
-// class Module1 {
-//     constructor(seconds, width) {
-//       this.seconds = seconds;
-//       this.width = width;
-//     }
-//     // Getter
-//     get area() {
-//       return this.postSeconds();
-//     }
-//     // Method
-//     postSeconds() {
-//       return this.seconds * this.width;
-//     }
-//   }
-
-//   const square = new Rectangle(10, 10);
-
-//   console.log(square.area); // 100
-
-var ball1 = null;
-
-function timerOne() {
-    //on click (in html)   
-    //get timer length from input
-    var seconds = document.getElementById("secondsInput").value;
-    // *** TO DO ***
-    // validate input -- see checkInp() below
-    // function checkInp()
-    // {
-    //   var x=document.forms["myForm"]["age"].value;
-    //   if (isNaN(x)) 
-    //   {
-    //     alert("Must input numbers");
-    //     return false;
-    //   }
-    // }
-    console.log(seconds);
-    //change input to milleseconds
-    var seconds = seconds * 1000;
-    //pass seconds value to next function
-    // function setSeconds(seconds)
-    //timer starts
-    // setTimeout(myTimeout1, x);
-
-}
-timerOne();
+var ballArray = [];
+var isAccepting = false;
+var currentCountMod2 = 0;
 
 
-// function setSeconds(seconds) {
-//with input from timerOne, set timer to move ball
-// }
+//EVENT LISTENERS 
+var numberButton = document.getElementById("mod-one-number-button");
+$(numberButton).on("click", getCount);
+var secondsButton = document.getElementById("mod-one-seconds-button");
+$(secondsButton).on("click", getSeconds);
+var startButton = document.getElementById("start");
+$(startButton).on("click", transStart);
+var secondsButton2 = document.getElementById("mod-two-seconds-button");
+$(secondsButton2).on("click", functName);
+var modTwoMax = document.getElementById("mod-two-max-button");
+console.log(modTwoMax);
 
-//needs to ONLY be called when user clicks submit
-function getCount() {
-    var ballCount = document.getElementById("ballCount").value;
-    createBalls(ballCount);
-    // addBalls(ballCount);
-
-}
-getCount();
 
 
-function createBalls(ballCount) {
-    console.log("Line97 " + ballCount);
-    for (var i=0; i < ballCount; i++) {
-        console.log(ballCount);
-        var myImage = new Image(15, 15);
-        myImage.src = '/assets/orangeBall.png';
-        document.body.appendChild(myImage);
+function createBalls(ballcount) {
+    for (var i = 0; i < ballcount; i++) {
+        var myimage = new Image(15, 15);
+        myimage.src = 'images/orangeball.png';
+        myimage.id = 'ball' + i;
+        myimage.className = 'resting ballz';
+        ballArray.push(myimage.id);
+        document.getElementById("ball-container").appendChild(myimage);
     }
 }
-createBalls();
+
+function getCount() {
+    var ballCount = window.document.getElementById("ballCount").value;
+    createBalls(ballCount);
+}
+
+function getSeconds() {
+    var milleseconds = window.document.getElementById("secondsInput").value;
+    var seconds = milleseconds * 1000;
+    console.log(seconds);
+    //pass to createTimer(seconds) to start countdowns
+    // createTimer(seconds);
+    
+}
+
+function transStart(seconds) {
+    //this changes the animation state of balls from resting to mod-one-mill
+    for (var i = 0; i <= ballArray.length; i++) {
+        var ballNumber = window.document.getElementById("ball" + i);
+        if (ballNumber) {
+            ballNumber.classList.remove("resting");
+            ballNumber.classList.add("mod-one-mill");
+        } 
+    }
+    loopThroughBalls(i);
+}
+
+
+function loopThroughBalls() {
+    for (var i = 0; i <= ballArray.length; i++) {
+        isNextAccepting(i);
+    }
+}
+
+
+function apperance(i) {
+    setTimeout(function() {
+        var thisBall = window.document.getElementById(ballArray[i]);
+        $(thisBall).toggleClass("mod-one-mill tube-animation");
+        console.log(i);
+    }, 1000 + i * 1500);
+    console.log("modTwoMax is " + modTwoMax);
+}
+
+function isNextAccepting(i) {
+    if(isAccepting == false){overflow(i)} 
+    else { apperance(i)}
+}
+
+function overflow(i){
+    setTimeout(function() {
+        var thisBall = window.document.getElementById(ballArray[i]);
+        $(thisBall).toggleClass("mod-one-mill to-overflow-animation");
+    }, 1000 + i * 1500);
+    currentCountMod2 += 1;
+    compareCount(i);
+}
+
+function compareCount(i) {
+    if (currentCountMod2 >= modTwoMax){
+        //continue to next module
+        returnFromOverflow(i);
+        // console.log("the currentCountMod2 is greater or equal to modTwoMax");
+    } else {
+        //stay in resting position
+        //var thisBall = window.document.getElementById(ballArray[i]);
+        //$(thisBall).toggleClass("to-over-flow-animation resting");
+         console.log("the currentCountMod2 is less than modTwoMax");
+    }
+}
+
+
+// function returnFromOverflow(i){
+//     setTimeout(function() {
+//         var thisBall = window.document.getElementById(ballArray[i]);
+//         $(thisBall).toggleClass("to-overflow-animation return-overflow-one");
+//     }, 1000 + i *1500);
+//     });
+
+// }
